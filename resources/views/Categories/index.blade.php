@@ -22,6 +22,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">category Name</th>
+            <th scope="col">category description</th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
@@ -31,6 +32,7 @@
             <tr>
                 <th scope="row">{{$loop->iteration}}</th>
                 <td>{{$category->category_name}}</td>
+                <td>{{$category->category_description}}</td>
   
 
 
@@ -53,19 +55,6 @@
 <script>
     function deleteConfirm() {
         return confirm("Are you sure you want to delete?");
-    }
-
-    var successMessage = document.getElementById('success-message');
-      
-    if (successMessage) {
-        setTimeout(function() {
-            successMessage.style.transition = "opacity 1s";
-            successMessage.style.opacity = 0;
-
-            setTimeout(function() {
-                successMessage.remove();
-            }, 1000);
-        }, 1000);
     }
 </script>
 
