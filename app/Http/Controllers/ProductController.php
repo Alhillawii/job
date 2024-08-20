@@ -1,19 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\product;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::all();
-        return view('product.idex' , compact('products'));
+        $productsfromDB=product::all();
+      return view("products.index",['products'=> $productsfromDB] );
+      // return view('products.index');}
     }
 
     /**
@@ -21,7 +22,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-         return view('products.creste');
+        return view('products.create');
     }
 
     /**
@@ -32,51 +33,48 @@ class ProductsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required | max:255',
             'price' => 'required | numeric',
-            'description' => 'required | max:255',
-          ]);
-          Product::create($validatedData);
-          return to_route('products.index')->with ('success' , 'product created successfully');
+            'description' => 'required | max:255',]);
+            Product::create($validatedData);
+        return to_route('products.index')->with ('success' , 'product created successfully');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return view('products.show', ['product'=> $product]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
-    {
+    public function edit(product $product){
         return view('products.edit' , compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
-    {
+    public function update(Request $request, Product $product){
         $validatedData = $request->validate([
             'name' => 'required | max:255',
             'price' => 'required | numeric',
-            'description' => 'required | max:255',
-          ]);
+            'description' => 'required | max:255',]);
 
-          $product->update($validatedData);
-          return to_route('products.index')->with('success' , 'product updated successfully');
+        $product->update($validatedData);
+        return to_route('products.index')->with('success' , 'product updated successfully');
 
-    }
+  }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
-    {
+    public function destroy(Product $product){
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+  
+      }
+  }
 
-    }
-}

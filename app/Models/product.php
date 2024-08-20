@@ -9,6 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 class product extends Model
 {
     use HasFactory , SoftDeletes;
-    protected $fillable = ['id' , 'product_name' , 'product_description' , 'product_price'];
-    
+    protected $fillable = [ 'name' , 'description' , 'price'];
 }

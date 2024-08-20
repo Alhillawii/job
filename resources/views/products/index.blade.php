@@ -1,43 +1,53 @@
 @extends('layouts.app')
+@section('title', 'products')
+
 
 @section('content')
-    <div class="container">
-        <h1 class="mb-4">Products</h1>
+<div class="text-center">
 
-        <!-- Create button -->
-        <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Create New Product</a>
+    <a href="{{route('products.create')}}" class="btn btn-success">Add Product</a>
+</div>
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
 
-        <!-- Data grid -->
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td>{{ $product->description }}</td>
-                        <td>
-                            <!-- Action buttons -->
-                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm">View</a>
-                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            <th scope="col">product description</th>
+            <th scope="col"> product price</th>
+            <th scope="col"> action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($products as $product)
+
+            <tr>
+                <th scope="row">{{$product['id']}}</th>
+                <td>{{$product->name}}</td>
+  
+                <td>{{$product->description}}</td>
+                <td>{{$product->price}}</td>
+
+
+                <td><a href="{{route('products.show', $product['id'])}}" class="btn btn-info">view</a>
+                    <a href="{{route('products.edit', $product['id'])}}" class="btn btn-primary">Edit</a>
+                    <form style="display:inline;" method='POST' action={{route('products.destroy', $product->id)}} onsubmit="return deleteconform()" >
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">Delete</button>
+
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+
+
+    </tbody>
+</table>
+<script>
+    function deleteconform() {
+        return confirm("are you sure to delete ?");
+    }
+</script>
 @endsection
