@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+       
+        $category= category::all();
+        // return view('categories.create');
+        return view('products.create' ,  ['category' => $category]);
+        
+        
+
     }
 
     /**
@@ -33,8 +40,20 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'name' => 'required | max:255',
             'price' => 'required | numeric',
-            'description' => 'required | max:255',]);
+            'description' => 'required | max:255',
+           'category'=>'required','exists:categories,id']);
             Product::create($validatedData);
+            $title = request()->name;
+            $description = request()->description;
+            $price = request()->price;
+            $category = request()->category;
+
+            Product::create([
+                'name'=>$title,
+                'description'=>$description,
+                'price'=>$price,
+                'category_id'=>$category
+            ]);
         return to_route('products.index')->with ('success' , 'product created successfully');
 
     }

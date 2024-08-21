@@ -22,6 +22,15 @@
                 <textarea class="form-control" id="description" name="description"></textarea>
             </div>
 
+            <div class="mb-3">
+            <label  class="form-label">Category</label>
+            <select name="category" class="form-control">
+            @foreach ( $category as $categories    )
+        <option value="{{ $categories->id }}">{{ $categories->category_name }}</option>
+        @endforeach
+            </select> 
+        </div>
+
             <button type="submit" class="btn btn-success">Create Product</button>
         </form>
     </div>

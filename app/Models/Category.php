@@ -14,4 +14,10 @@ class Category extends Model
         'category_name',
         'category_description',
     ];
+
+    public function category(){
+       return $this->belongsTo(Category::class);
+    }
 }
+
+

@@ -33,6 +33,7 @@ class CategoryController extends Controller
           category::create([
             'category_name'=>$request->name,
             'category_description'=>$request->description,
+            // $category = request()->category;
         
         ]);
           return to_route('categories.index');

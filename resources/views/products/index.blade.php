@@ -12,6 +12,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Product Name</th>
+            <th scope="col">Category</th>
 
             <th scope="col">product description</th>
             <th scope="col"> product price</th>
@@ -24,6 +25,7 @@
             <tr>
                 <th scope="row">{{$product['id']}}</th>
                 <td>{{$product->name}}</td>
+                <td>{{$product->categories->category_name}}</td>
   
                 <td>{{$product->description}}</td>
                 <td>{{$product->price}}</td>

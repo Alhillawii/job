@@ -37,3 +37,5 @@ Route::post('/products',[ ProductController::class,'store'])->name('products.sto
 Route::resource('categories',CategoryController::class);
 
 
+
+
